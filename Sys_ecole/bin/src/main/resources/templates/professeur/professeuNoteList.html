@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>List Note Professeur <span th:text="${Professeur.nom}+' '+${Professeur.prenom}"></span></h1>
+	<div th:if="${Professeur}">
+	<table>
+			<tr>
+				<th>Photo Etudiant</th>
+				<th>Etudiant</th>
+				<th>Annee</th>
+				<th>Note Session Normale</th>
+				<th>Note Session Rattrapage</th>
+				<th>Moyenne</th>
+				<th>Element</th>
+			</tr>
+			<tr th:each="note : ${Professeur.lesNotes}">
+				<td>
+					<img th:src="@{/getPicture(nomPhoto=${note.etudiant.photo})}" width="150" height="150"/>
+				</td>
+				<td th:text="${note.etudiant.nom+' '+note.etudiant.prenom}"></td>
+				<td th:text="${note.annee}"></td>
+				<td th:text="${note.note_SN}"></td>
+				<td th:text="${note.note_SR}"></td>
+				<td th:text="${note.moyenne}"></td>
+				<td th:text="${note.element.nom}"></td>
+				<td><a onclick="return confirm('Voulez vous vraiment Supprimer ?')" th:href="@{/professeur/deleteNote(id=${note.id})}">Supprimer</a></td>
+			</tr>
+	</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

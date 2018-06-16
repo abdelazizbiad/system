@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+	<header th:replace="fragments :: header"></header>
+	<h2>Note Module</h2>
+	
+	<div>
+		<table>
+			<tr>
+			<th>Element</th>
+			<th>Année</th>
+			<th>Note Session Normale</th>
+			<th>Note Session Ratrapage</th>
+			<th>Moyenne</th>
+			<th>Module</th>
+			<th>Note Module Finale</th>
+			<th>V/NV</th>
+			</tr>
+			<tr th:each="note : ${notes}">
+				<td th:text="${note.element.nom}"></td>
+				<td th:text="${note.annee}"></td>
+				<td th:text="${note.note_SN}"></td>
+				<td th:text="${note.note_SR}"></td>
+				<td th:text="${note.moyenne}"></td>
+				<td th:text="${note.element.module.nom}"></td>
+<!-- 				<td th:text="${note.getNoteModule()}"></td> -->
+<!-- 				<td> -->
+<!-- 					<span th:text="${comptecontroller.test(note.etudiant,note.element.module)}"></span> -->
+<!-- 				</td> -->
+				<td>En Cours de construction</td>
+				<td th:if="${note.getNoteModule()>=12}">Validé</td>
+				<td th:unless="${note.getNoteModule()>=12}">Non Validé</td>
+			</tr>
+		</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

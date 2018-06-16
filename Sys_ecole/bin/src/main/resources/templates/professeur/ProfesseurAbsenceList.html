@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>List Absence Professeur<span th:text="${Professeur.nom}+' '+${Professeur.prenom}"></span></h1>
+	<div th:if="${Professeur}">
+	<table>
+			<tr>
+				<th>Heure Debut Seance</th>
+				<th>Heure Fin Seance</th>
+				<th>Element</th>
+				<th>Etudiant</th>
+				<th>Photo Etudiant</th>
+				<th>Justification</th>
+			</tr>
+			<tr th:each="Absence : ${Professeur.lesAbsences}">
+				<td th:text="${Absence.heure_debut_seance}"></td>
+				<td th:text="${Absence.heure_fin_seance}"></td>
+				<td th:text="${Absence.element.nom}"></td>
+				<td th:text="${Absence.etudiant.nom}+' '+${Absence.etudiant.prenom}"></td>
+				<td>
+					<img th:src="@{/getPicture(nomPhoto=${Absence.etudiant.photo})}" width="150" height="150"/>
+				</td>
+				<td th:if="${Absence.justification}">Justifié</td>
+				<td th:unless="${Absence.justification}">Non Justifié</td>
+				<td><a onclick="return confirm('Voulez vous vraiment Supprimer ?')" th:href="@{/professeur/delete(id=${Absence.id})}">Supprimer</a></td>
+			</tr>
+	</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

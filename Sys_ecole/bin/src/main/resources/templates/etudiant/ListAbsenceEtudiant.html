@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>List Absence Etudiant<span th:text="${Etudiant.nom}+' '+${Etudiant.prenom}"></span></h1>
+	<div th:if="${Etudiant}">
+	<table>
+			<tr>
+				<th>Heure Debut Seance</th>
+				<th>Heure Fin Seance</th>
+				<th>Element</th>
+				<th>Professeur</th>
+				<th>Justification</th>
+				<th>Nombre Heure</th>
+			</tr>
+			<tr th:each="Absence : ${Etudiant.lesAbsences}">
+				<td th:text="${Absence.heure_debut_seance}"></td>
+				<td th:text="${Absence.heure_fin_seance}"></td>
+				<td th:text="${Absence.element.nom}"></td>
+				<td th:text="${Absence.prof.nom}+' '+${Absence.prof.prenom}"></td>
+				<td th:if="${Absence.justification}">Justifié</td>
+				<td th:unless="${Absence.justification}">Non Justifié</td>
+				<td th:text="${Absence.nbHeure}"></td>
+			</tr>
+	</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

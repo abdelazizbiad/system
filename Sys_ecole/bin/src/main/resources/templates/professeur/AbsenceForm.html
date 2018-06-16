@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h1>Test Absence</h1>
+
+	<form  method="post" th:object="${absence}">
+		<div  th:if="${Erreuretd}">
+               <span>Etudiant Introuvable</span>            
+			</div>
+		<div>
+			<label>Heure Debut Séance</label>
+			<input type="datetime" th:field="*{heure_debut_seance}" placeholder="Format yyyy-MM-dd HH:mm"/>
+			<span th:errors="*{heure_debut_seance}"></span>
+		</div>
+		<div>
+			<label>Heure Fin Séance</label>
+			<input type="datetime" th:field="*{heure_fin_seance}"/>
+			<span th:errors="*{heure_fin_seance}"></span>
+		</div>
+		<div>
+			<label>Justification</label>
+			<input type="checkbox" th:field="*{justification}"/>
+			<span ></span>
+		</div>
+		<div>
+			<label>CNE Etudiant</label>
+			<input type="text" name="CNE"/>
+			
+			<div  th:if="${erreurCne}">
+               <span>Vous devez saisir un cne</span>            
+			</div>
+		</div>
+		<div>
+			<label>Séléctionner Element</label>
+			<select name="idElement">
+				<option th:value="NULL" th:text="${'Select Element'}"></option>
+				<option th:each="affectation : ${affectations}" th:value="${affectation.element.id}" th:text="${affectation.element.nom}">Wireframe</option>
+			</select>
+			<div  th:if="${erreurelement}">
+               <span>Vous devez séléctionner un element</span>            
+			</div>
+			
+		</div>
+		<button type="submit">Enregistrer</button>
+
+	</form>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

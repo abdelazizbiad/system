@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>List Absence</h1>
+	<form>
+		<div th:action="@{/admin/lisProfesseur}" method="get" >
+			<label>Saisie le Nom ou partie du Nom:</label>
+			<input type="text" name="motCle" th:value="${motCle}"/>
+			<button type="submit">Chercher</button>
+		</div>
+	</form>
+	<div th:if="${Professeurs}">
+		<table>
+			<tr>
+				<th>cin:</th>
+				<th>Nom:</th>
+				<th>Prenom:</th>
+				<th>email:</th>
+			</tr>
+			<tr th:each="prof : ${Professeurs}">
+				<td th:text="${prof.cin}"></td>
+				<td th:text="${prof.nom}"></td>
+				<td th:text="${prof.prenom}"></td>
+				<td th:text="${prof.email}"></td>
+				<td><a onclick="return confirm('Voulez vous vraiment Supprimer ?')" th:href="@{/admin/deleteProfesseur(id=${prof.id})}">Supprimer</a></td>
+			</tr>
+		</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

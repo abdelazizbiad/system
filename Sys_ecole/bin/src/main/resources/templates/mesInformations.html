@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+	<header th:replace="fragments :: header"></header>
+	<img th:src="@{/getPicture(nomPhoto=${user.photo})}" width="150" height="150"/>
+	<div th:if="${roleUser}=='ETUDIANT'">
+		<h2>IDENTIFICATION DE L'ETUDIANT</h2>
+		<table>
+		<tr>
+			<td>CNE:</td>
+			<td th:text="${user.cne}"></td>
+		</tr>
+		<tr>
+			<td>Nom:</td>
+			<td th:text="${user.nom}"></td>
+		</tr>
+		<tr>
+			<td>Prenom:</td>
+			<td th:text="${user.prenom}"></td>
+		</tr>
+		<tr>
+			<td>date de Naissane:</td>
+			<td th:text="${user.dateNaissance}"></td>
+		</tr>
+		<tr>
+			<td>Lieu de Naissane:</td>
+			<td th:text="${user.lieuNaissance}"></td>
+		</tr>
+		<tr>
+			<td>email:</td>
+			<td th:text="${user.email}"></td>
+		</tr>
+		<tr>
+			<td>Sexe:</td>
+			<td th:text="${user.sexe}"></td>
+		</tr>
+		<tr>
+			<td>Pays:</td>
+			<td th:text="${user.pays}"></td>
+		</tr>
+		</table>
+		<h2>Inscription de l'etudiant:</h2>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Année</th>
+				<th>Niveau</th>
+			</tr>
+			<tr th:each="inscription : ${user.lesInscriptions}">
+				<td th:text="${inscription.id}"></td>
+				<td th:text="${inscription.annee}"></td>
+				<td th:text="${inscription.niveau.label}"></td>
+			</tr>
+		</table>
+		<h2>Obtention Baccalauréat</h2>
+		<table>
+			<tr>
+				<td>Année :</td>
+				<td th:text="${user.anneeBac}"></td>
+			</tr>
+			<tr>
+				<td>Type :</td>
+				<td th:text="${user.typeBac}"></td>
+			</tr>
+			<tr>
+				<td>Mention :</td>
+				<td th:text="${user.mentionBac}"></td>
+			</tr>
+			<tr>
+				<td>lycée :</td>
+				<td th:text="${user.lycee}"></td>
+			</tr>
+			<tr>
+				<td>Académie:</td>
+				<td th:text="${user.academieBac}"></td>
+			</tr>
+		</table>
+		<h2>Information Parent</h2>
+		<table>
+			<tr>
+				<td>Tele parent:</td>
+				<td th:text="${user.lastInscription.Teleparent}"></td>
+			</tr>
+			<tr>
+				<td>Categorie Pére:</td>
+				<td th:text="${user.lastInscription.categoriePere}"></td>
+			</tr>
+			<tr>
+				<td>Categorie Mére:</td>
+				<td th:text="${user.lastInscription.categorieMere}"></td>
+			</tr>
+			<tr>
+				<td>Province Parent:</td>
+				<td th:text="${user.lastInscription.provinceParent}"></td>
+			</tr>
+			<tr>
+				<td>Adresse:</td>
+				<td th:text="${user.lastInscription.adresseParent}"></td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${roleUser eq 'ADMIN' || roleUser eq 'PROFESSEUR'}">
+		<h2>IDENTIFICATION Du Professeur</h2>
+		<table>
+		<tr>
+			<td>CIN:</td>
+			<td th:text="${user.cin}"></td>
+		</tr>
+		<tr>
+			<td>Nom:</td>
+			<td th:text="${user.nom}"></td>
+		</tr>
+		<tr>
+			<td>Prenom:</td>
+			<td th:text="${user.prenom}"></td>
+		</tr>
+		<tr>
+			<td>email:</td>
+			<td th:text="${user.email}"></td>
+		</tr>
+		<tr th:if="${roleUser} == 'ADMIN'">
+			<td>ROLE:</td>
+			<td>ADMIN</td>
+		</tr>
+		</table>
+		<h2>IDENTICATION PEDAGOGIQUE</h2>
+		<table>
+			<tr>
+				<th>Date Debut</th>
+				<th>Date Fin</th>
+				<th>Nom Element</th>
+				<th>Nom Module</th>
+				<th>Filiére</th>
+			</tr>
+			<tr th:each="Affectation : ${user.lesAffectations}">
+				<td th:text="${Affectation.date_debut}"></td>
+				<td th:text="${Affectation.date_fin}"></td>
+				<td th:text="${Affectation.element.nom}"></td>
+				<td th:text="${Affectation.element.module.nom}"></td>
+				<td th:text="${Affectation.element.module.filier.nom}"></td>
+			</tr>
+	</table>
+	</div>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

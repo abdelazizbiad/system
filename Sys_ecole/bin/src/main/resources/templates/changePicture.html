@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+	<header th:replace="fragments :: header"></header>
+	<h1>Changer Picture</h1>
+	<div>
+		<form  th:action="@{/changePicture}" method="post"  enctype="multipart/form-data">
+			<span th:if="${error}">Vous devez enter une photo</span>
+			<div>
+				<label>photo:</label>
+				<input type="file" name="photo"/>
+			</div>
+			<div>
+				<button type="submit">Enregistrer</button>
+			</div>
+		</form>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title th:text="${title}"></title>
+<!--     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> -->
+<!--     <link rel="stylesheet" th:href="@{/css/main.css}"/> -->
+</head>
+<body>
+<header th:fragment="header">
+	<div>
+		<ul>
+			<li ><a th:href="@{/}">Home</a></li>
+		</ul>
+		<div sec:authorize="isAuthenticated()">
+			
+			<ul sec:authorize="hasAuthority('ADMIN')">
+				<li>
+					<a th:href="@{/professeur/addAbsence}" >Ajouter absence</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/addNote}" >Ajouter Note</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/ListAbsence}" >List des Absences</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/addEtudiant}">Ajouter Etudiant</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/addProfesseur}">Ajouter Professeur</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/affectation}">Ajouter Affectation</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/listetudiant}">List Etudiant</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/listProfesseur}">List Professeur</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/ProfesseurAbsenceList}">Mes Absences</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/ProfesseurNoteList}">Mes Notes</a>
+				</li>
+				
+				
+			</ul>
+			<ul sec:authorize="hasAuthority('PROFESSEUR')">
+				<li>
+					<a th:href="@{/professeur/addAbsence}" >addAbsence</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/ProfesseurAbsenceList}">Mes Absences</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/addNote}" >Ajouter Note</a>
+				</li>
+				<li>
+					<a th:href="@{/professeur/ProfesseurNoteList}">Mes Notes</a>
+				</li>
+			</ul>
+			<ul sec:authorize="hasAuthority('ETUDIANT')">
+				<li>
+					<a th:href="@{/etudiant/AbsenceEtudiant}">Mes Absences</a>
+				</li>
+				<li>
+					<a th:href="@{/etudiant/noteEtudiant}">Mes Notes</a>
+				</li>
+			</ul>
+			<button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                    <img th:src="@{/getPicture(nomPhoto=${user.photo})}" width="50" height="50"/>
+<!-- 					<span th:text="${nameUser}"></span> <span class="caret"></span> -->
+					<span th:text="${user.nom+' '+user.prenom}"></span>
+			</button>
+			<ul>
+				<li>Compte
+					<ul>
+						<li><a th:href="@{/mesInformations}">Mes Infromations</a></li>
+						<li><a th:href="@{/changePassword}">Changer mot de passe</a></li>
+						<li><a th:href="@{/changePicture}">Changer Picture</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul>
+                <li>
+                    <a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Sign out</a>
+				</li>
+			</ul>
+		</div>
+		 <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/signin"><span class="glyphicon glyphicon-log-in"></span>Sign in</a>
+                </li>
+		</ul>
+		
+	</div>
+</header >
+<footer th:fragment="footer">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <p><span class="glyphicon glyphicon-envelope"></span> Réalisée Par TOURABI Zakaria and BIAD Abdelaziz</p>
+                <p><span class="glyphicon glyphicon-user"></span>github.com/MrNobody3/Gestion_ecole</p>
+                <h6 class="text-muted">Copyright © Suivi Etudiant 2018. All Rights Reserved</h6>
+            </div>
+           
+</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	 <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+
+<body>
+	<header th:replace="fragments :: header"></header>
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div class="profile-container">
+                <img class="profile" th:src="@{/getPicture(nomPhoto=${user.photo})}" width="150" height="150"/>
+                <table><tr><td th:text="${user.nom}"></td></tr></table>
+                <table><tr><td th:text="${user.prenom}"></td></tr></table>
+            </div><!--//profile-container-->
+			
+            <div th:if="${roleUser eq 'ADMIN' || roleUser eq 'PROFESSEUR'}">
+            <div class="contact-container container-block">
+            	<h3 class="container-block-title">IDENTIFICATION Du Professeur</h3>
+                <ul class="list-unstyled contact-list">
+                    <li><i>CIN:</i><table><tr><td th:text="${user.cne}"></td></tr></table></li>
+                    <li><i>email:</i><table><tr><td th:text="${user.dateNaissance}"></td></tr></table></li>
+                    
+                    <li><i></i>
+						<table>
+							<tr th:if="${roleUser} == 'ADMIN'">
+								<td>ROLE:</td>
+								<td>ADMIN</td>
+							</tr>
+						</table>
+					</li>
+                </ul>
+            </div><!--//contact-container-->
+            </div>
+        </div><!--//sidebar-wrapper-->
+        
+        <div class="main-wrapper">
+         
+            
+            
+              <CENTER><fieldset ><h1> AFFECTATION FORM<h1></h1></fieldset></CENTER>
+					
+            	
+            
+            	<form th:action="@{/admin/addEtudiant}" method="post" class="login100-form validate-form p-l-55 p-r-55 p-t-178">
+					
+					<h3>Info principale</h3>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter CNE">
+						<input type="text" th:field="${etudiant.cne}" required="required" class="input100" placeholder="CNE" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.cne}"></span>
+					</div>
+					
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter CIN">
+						<input type="text" th:field="${etudiant.cin}" required="required" class="input100" placeholder="CIN" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.cin}"></span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter NOM">
+						<input type="text" th:field="${etudiant.nom}" required="required" class="input100" placeholder="NOM" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.nom}"></span>
+					</div>
+					
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter PRENOM">
+						<input type="text" th:field="${etudiant.prenom}" required="required" class="input100" placeholder="PRENOM" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.prenom}"></span>
+					</div>
+					
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter SEXE">
+						<input type="text" th:field="${etudiant.sexe}" required="required" class="input100" placeholder="SEXE" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.sexe}"></span>
+					</div>
+					
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter DATE">
+						<input type="date" th:field="${etudiant.dateNaissance}" required="required" class="input100"  
+								placeholder="Date Naissance" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.dateNaissance}"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter CITY">
+						<input type="text" th:field="${etudiant.lieuNaissance}" required="required" class="input100"  
+								placeholder="Lieu de Naissance" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.lieuNaissance}"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter COUNTRY">
+						<input type="text" th:field="${etudiant.pays}" required="required" class="input100"  
+								placeholder="Pays" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.pays}"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter EMAIL">
+						<input type="text" th:field="${etudiant.email}" required="required" class="input100"  
+								placeholder="Email" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.email}"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter YEAR">
+						<input type="text" th:field="${etudiant.anneeBac}" required="required" class="input100"  
+								placeholder="Année Obtention Baccaleuréat" />
+						<span class="focus-input100"></span>
+						<span th:errors="${etudiant.anneeBac}"></span>
+					</div>
+					<br>
+					
+					
+					
+					
+					
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter TYPE">
+						<br>
+						<label>Type Baccaleuréat:</label>
+					
+						<select STYLE="width:80;height: 30" th:field="${etudiant.typeBac}" name="typeBac">
+							<option th:value="NULL" th:text="${Select}"></option>
+							<option th:each="type : ${typesBac}" th:value="${type}" th:text="${type}">Wireframe</option>
+						</select>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter MENTION">
+						<br>
+						<label>Mention Bac:</label>
+						<select STYLE="width:80;height: 30" th:field="${etudiant.mentionBac}" name="mentionBac">
+							<option th:value="NULL" text="Select item"></option>
+							<option th:each="t : ${mentionsBac}" th:value="${t}" th:text="${t}">Wireframe</option>
+						</select>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter LYCEE">
+						<br>
+						<input type="text" th:field="${etudiant.lycee}" required="required" class="input100"  
+								placeholder="lycee" />
+					</div>
+					
+					
+					
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter ACADEMY">
+						<br>
+						<label>Académie Baccalauréat:</label>
+						<select STYLE="width:80;height: 30" th:field="${etudiant.academieBac}" name="academieBac">
+							<option th:value="NULL" text="Select item"></option>
+							<option th:each="t : ${academiesBac}" th:value="${t}" th:text="${t}">Wireframe</option>
+						</select>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "HENDICAPE?">
+						<br>
+						<label>Hendicape</label>
+						<input type="checkbox" th:field="${etudiant.hendicape}" name="hendicape" />
+						
+					</div>
+				
+				
+				
+				
+				
+					<div>
+			<h3>Information Inscription Scolaire</h3>
+			
+			
+			
+			
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				<input type="text" th:field="${inscription.annee}" required="required" class="input100"  placeholder="Année Inscription" />
+				<span th:errors="${inscription.annee}"></span>
+			</div>
+			<br>
+			
+			
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				
+				<input type="text" th:field="${inscription.Teleparent}" required="required" class="input100"  placeholder="Téléphone des parents" />
+				<span th:errors="${inscription.Teleparent}"></span>
+			</div>
+			
+			
+			<br>
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				
+				<input type="text" th:field="${inscription.categoriePere}" required="required" class="input100"  placeholder="Catégorie Pére" />
+				<span th:errors="${inscription.categoriePere}"></span>
+			</div>
+			
+			<br>
+			
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				
+				<input type="text" th:field="${inscription.categorieMere}" required="required" class="input100"  placeholder="Catégorie Mére" />
+				<span th:errors="${inscription.categorieMere}"></span>
+			</div>
+			
+			
+			<br>
+			
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				<label>Province Parent:</label>
+				<select th:field="${inscription.provinceParent}">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${provinces}" th:value="${t}" th:text="${t}">Wireframe</option>
+				</select>
+			</div><br>
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				
+				<input type="text" th:field="${inscription.adresseParent}" required="required" class="input100"  
+								placeholder="Adresse Parent" />
+				<span th:errors="${inscription.adresseParent}"></span>
+			</div>
+			<br>
+			<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please enter password">
+				<label>Niveau: </label>
+				<select name="idNiveau">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${lesNiveau}" th:value="${t.id}" th:text="${t.label}">Wireframe</option>
+				</select>
+			</div>
+			
+		</div>
+				<br>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Enregistrer
+						</button>
+					</div>
+
+					
+				</form>
+            
+            
+            
+            
+            
+            
+            
+           
+            
+         </div><!--//main-body-->
+        
+        
+        
+    </div>
+ <footer class="footer" th:replace="fragments :: footer">
+ 
+ </footer>
+   
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>    
+    <!-- custom js -->
+    <script type="text/javascript" src="assets/js/main.js"></script>            
+</body>
+
+
+</html>

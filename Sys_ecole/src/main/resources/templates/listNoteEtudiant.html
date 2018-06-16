@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>liste notes étudiant</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive HTML5 Resume/CV Template for Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head> 
+
+<body>
+	<header th:replace="fragments :: header"></header>
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div class="profile-container">
+                <img class="profile" th:src="@{/getPicture(nomPhoto=${user.photo})}" width="150" height="150"/>
+                <table><tr><td th:text="${user.nom}"></td></tr></table>
+                <table><tr><td th:text="${user.prenom}"></td></tr></table>
+            </div><!--//profile-container-->
+			<div th:if="${roleUser}=='ETUDIANT'">
+            <div class="contact-container container-block">
+            	<h3 class="container-block-title">IDENTIFICATION DE L'ETUDIANT</h3>
+                <ul class="list-unstyled contact-list">
+                    <li><i>CNE:</i><table><tr><td th:text="${user.cne}"></td></tr></table></li>
+                    <li><i>date de Naissane:</i><table><tr><td th:text="${user.dateNaissance}"></td></tr></table></li>
+                    <li><i>Lieu de Naissane:</i><table><tr><td th:text="${user.lieuNaissance}"></td></tr></table></li>
+                    <li><i>email:</i><table><tr><td th:text="${user.email}"></td></tr></table></li>
+                    <li><i>Sexe:</i><table><tr><td th:text="${user.sexe}"></td></tr></table></li>
+                    <li><i>Pays:</i><table><tr><td th:text="${user.pays}"></td></tr></table></li>
+                </ul>
+            </div><!--//contact-container-->
+            </div>
+            
+        </div><!--//sidebar-wrapper-->
+        
+        <div class="main-wrapper">
+            <div th:if="${roleUser}=='ETUDIANT'">
+				<h2>Note Module</h2>
+					<table>
+						<tr>
+							<th>Element</th>
+							<th>Année</th>
+							<th>Note Session Normale</th>
+							<th>Note Session Ratrapage</th>
+							<th>Moyenne</th>
+							<th>Module</th>
+							<th>Note Module Finale</th>
+							<th>V/NV</th>
+						</tr>
+						<tr th:each="note : ${notes}">
+							<td th:text="${note.element.nom}"></td>
+							<td th:text="${note.annee}"></td>
+							<td th:text="${note.note_SN}"></td>
+							<td th:text="${note.note_SR}"></td>
+							<td th:text="${note.moyenne}"></td>
+							<td th:text="${note.element.module.nom}"></td>
+<!-- 						<td th:text="${note.getNoteModule()}"></td> -->
+<!-- 						<td> -->
+<!-- 					<span th:text="${comptecontroller.test(note.etudiant,note.element.module)}"></span> -->
+<!-- 						</td> -->
+							<td>En Cours de construction</td>
+							<td th:if="${note.getNoteModule()>=12}">Validé</td>
+							<td th:unless="${note.getNoteModule()>=12}">Non Validé</td>
+						</tr>
+					</table>
+            </div>
+         </div><!--//main-body-->
+        
+        
+        
+    </div>
+ <footer class="footer" th:replace="fragments :: footer">
+ 
+ </footer>
+   
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>    
+    <!-- custom js -->
+    <script type="text/javascript" src="assets/js/main.js"></script>            
+</body>
+</html> 
+

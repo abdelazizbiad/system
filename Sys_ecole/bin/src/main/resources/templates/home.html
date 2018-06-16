@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>Home</h1>
+	<ul>
+		<li th:text="${compte.username}"></li>
+		<li th:text="${compte.password}"></li>
+		<li th:text="${compte.iduser}"></li>
+		<li th:text="${compte.role.roleName}"></li>
+		<li th:text="${compte.enabled}"></li>
+	</ul>
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

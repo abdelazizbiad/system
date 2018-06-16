@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Systeme Ecole</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.min.css" rel="stylesheet">
+   <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title th:text="${title}"></title>
+<!--     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/> -->
+<!--     <link rel="stylesheet" th:href="@{/css/main.css}"/> -->
+  </head>
+
+  <body>
+<header th:fragment="header">
+    <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top" >
+      <a class="navbar-brand" href="#">Syteme Ecole</a>
+        <a sec:authorize="!isAuthenticated()" class="btn btn-default" href="#">Sign In</a>
+        <a class="btn btn-default" th:href="@{/}">Home</a>
+    
+    <div sec:authorize="isAuthenticated()">
+      <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="ADMIN" aria-haspopup="true" aria-expanded="false">
+    ADMIN
+  </button>
+  <div sec:authorize="hasAuthority('ADMIN')" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   <a  class="dropdown-item"th:href="@{/professeur/addAbsence}" >Ajouter absence</a>
+        <a class="dropdown-item"  th:href="@{/professeur/addNote}" >Ajouter Note</a>
+        <a class="dropdown-item"  th:href="@{/admin/ListAbsence}" >List des Absences</a>
+        <a class="dropdown-item"  th:href="@{/admin/addEtudiant}">Ajouter Etudiant</a><br>
+        <a class="dropdown-item"  th:href="@{/admin/addProfesseur}">Ajouter Professeur</a>
+        <a class="dropdown-item"  th:href="@{/admin/affectation}">Ajouter Affectation</a>
+        <a class="dropdown-item"  th:href="@{/admin/listetudiant}">List Etudiant</a>
+        <a class="dropdown-item" th:href="@{/admin/listProfesseur}">List Professeur</a>
+        <a class="dropdown-item" th:href="@{/professeur/ProfesseurAbsenceList}">Mes Absences</a>
+        <a class="dropdown-item" th:href="@{/professeur/ProfesseurNoteList}">Mes Notes</a>  
+  </div>
+</div>
+     </div>
+     
+     
+       <div sec:authorize="isAuthenticated()">
+       <div class="dropdown">
+  			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="ADMIN" aria-haspopup="true" aria-expanded="false">
+  			  ETUDIANT
+ 			</button>
+      <div sec:authorize="hasAuthority('ETUDIANT')" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item"th:href="@{/etudiant/AbsenceEtudiant}">Mes Absences</a>
+       <a class="dropdown-item"th:href="@{/etudiant/noteEtudiant}">Mes Notes</a>
+      </div>
+      </div>
+      </div>
+       
+     
+       <div sec:authorize="isAuthenticated()">
+       <div class="dropdown">
+       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="ADMIN" aria-haspopup="true" aria-expanded="false">
+  			  PROFESSEUR
+ 			</button>
+      <div class="dropdown-menu" class="dropdown" sec:authorize="hasAuthority('PROFESSEUR')">
+       <a class="dropdown-item" th:href="@{/professeur/addAbsence}" >addAbsence</a>
+        <a class="dropdown-item" th:href="@{/professeur/ProfesseurAbsenceList}">Mes Absences</a>
+        <a class="dropdown-item" th:href="@{/professeur/addNote}" >Ajouter Note</a>
+       <a class="dropdown-item" th:href="@{/professeur/ProfesseurNoteList}">Mes Notes</a>
+      </div>
+        </div>
+        </div>
+        
+        <div sec:authorize="isAuthenticated()">
+       <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="ADMIN" aria-haspopup="true" aria-expanded="false">
+  			  Compte
+ 			</button>
+       <div class="dropdown-menu" class="dropdown"  >
+       <a class="dropdown-item" th:href="@{/mesInformations}">Mes Infromations</a>
+       <a class="dropdown-item" th:href="@{/changePassword}">Changer mot de passe</a>
+       <a class="dropdown-item" th:href="@{/changePicture}">Changer Picture</a>
+       <a class="dropdown-item" href="/logout"><span class="glyphicon glyphicon-log-out"></span>Sign out</a>
+       </div>
+      </div>
+      </div>
+        
+    </nav>
+
+    <!-- Masthead -->
+   
+</header>
+
+    <!-- Footer -->
+    <footer th:fragment="footer" class="footer bg-light">
+ 
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            
+            <p class="text-muted small mb-4 mb-lg-0">Réalisée Par TOURABI Zakaria and BIAD Abdelaziz.</p>
+             
+             <p class="text-muted small mb-4 mb-lg-0"><span class="glyphicon glyphicon-user"></span>github.com/MrNobody3/Gestion_ecole</p>
+             <h6 class="text-muted">Copyright © Suivi Etudiant 2018. All Rights Reserved</h6>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

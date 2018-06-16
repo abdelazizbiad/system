@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="fragments :: head"></head>
+<body>
+	<header th:replace="fragments :: header"></header>
+	<form th:action="@{/admin/addEtudiant}" method="post">
+		<div>
+			<h3>Info principale</h3>
+			<div>
+				<label>CNE:</label>
+				<input type="text" th:field="${etudiant.cne}" required="required" />
+				<span th:errors="${etudiant.cne}"></span>
+			</div>
+			<div>
+				<label>CIN:</label>
+				<input type="text" th:field="${etudiant.cin}" required="required" />
+				<span th:errors="${etudiant.cin}"></span>
+			</div>
+			<div>
+				<label>Nom:</label>
+				<input type="text" th:field="${etudiant.nom}" required="required" />
+				<span th:errors="${etudiant.nom}"></span>
+			</div>
+			<div>
+				<label>Prenom:</label>
+				<input type="text" th:field="${etudiant.prenom}" required="required" />
+				<span th:errors="${etudiant.prenom}"></span>
+			</div>
+			<div>
+				<label>Sexe:</label>
+				<input type="text" th:field="${etudiant.sexe}" required="required" />
+				<span th:errors="${etudiant.sexe}"></span>
+			</div>
+			<div>
+				<label>Date Naissance:</label>
+				<input type="date" th:field="${etudiant.dateNaissance}" required="required" />
+				<span th:errors="${etudiant.dateNaissance}"></span>
+			</div>
+			<div>
+				<label>Lieu de Naissance:</label>
+				<input type="text" th:field="${etudiant.lieuNaissance}" required="required" />
+				<span th:errors="${etudiant.lieuNaissance}"></span>
+			</div>
+			<div>
+				<label>Pays:</label>
+				<input type="text" th:field="${etudiant.pays}" required="required" />
+				<span th:errors="${etudiant.pays}"></span>
+			</div>
+			<div>
+				<label>Email:</label>
+				<input type="text" th:field="${etudiant.email}" required="required" />
+				<span th:errors="${etudiant.email}"></span>
+			</div>
+			<div>
+				<label>Année Obtention Baccaleuréat:</label>
+				<input type="text" th:field="${etudiant.anneeBac}" required="required" />
+				<span th:errors="${etudiant.anneeBac}"></span>
+			</div>
+			<div>
+				<label>Type Baccaleuréat:</label>
+				<select th:field="${etudiant.typeBac}">
+					<option th:value="NULL" th:text="${Select}"></option>
+					<option th:each="type : ${typesBac}" th:value="${type}" th:text="${type}">Wireframe</option>
+				</select>
+			</div>
+			<div>
+				<label>Mention Bac:</label>
+				<select th:field="${etudiant.mentionBac}">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${mentionsBac}" th:value="${t}" th:text="${t}">Wireframe</option>
+				</select>
+			</div>
+			<div>
+				<label>Lycée:</label>
+				<input type="text" th:field="${etudiant.lycee}" required="required" />
+				<span th:errors="${etudiant.lycee}"></span>
+			</div>
+			<div>
+				<label>Académie Baccalauréat:</label>
+				<select th:field="${etudiant.academieBac}">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${academiesBac}" th:value="${t}" th:text="${t}">Wireframe</option>
+				</select>
+			</div>
+			<div>
+				<label>Hendicape</label>
+				<input type="checkbox" th:field="${etudiant.hendicape}"/>
+				<span ></span>
+			</div>
+		</div>
+		<div>
+			<h3>Information Inscription Scolaire</h3>
+			<div>
+				<label>Année Inscription:</label>
+				<input type="text" th:field="${inscription.annee}" required="required" />
+				<span th:errors="${inscription.annee}"></span>
+			</div>
+			
+			<div>
+				<label>Téléphone des parents:</label>
+				<input type="text" th:field="${inscription.Teleparent}" required="required" />
+				<span th:errors="${inscription.Teleparent}"></span>
+			</div>
+			<div>
+				<label>Catégorie Pére:</label>
+				<input type="text" th:field="${inscription.categoriePere}" required="required" />
+				<span th:errors="${inscription.categoriePere}"></span>
+			</div>
+			<div>
+				<label>Catégorie Mére:</label>
+				<input type="text" th:field="${inscription.categorieMere}" required="required" />
+				<span th:errors="${inscription.categorieMere}"></span>
+			</div>
+			<div>
+				<label>Province Parent:</label>
+				<select th:field="${inscription.provinceParent}">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${provinces}" th:value="${t}" th:text="${t}">Wireframe</option>
+				</select>
+			</div>
+			<div>
+				<label>Adresse Parent:</label>
+				<input type="text" th:field="${inscription.adresseParent}" required="required" />
+				<span th:errors="${inscription.adresseParent}"></span>
+			</div>
+			
+			<div>
+				<label>Niveau: </label>
+				<select name="idNiveau">
+					<option th:value="NULL" text="Select item"></option>
+					<option th:each="t : ${lesNiveau}" th:value="${t.id}" th:text="${t.label}">Wireframe</option>
+				</select>
+			</div>
+			
+		</div>
+		<button type="submit">Go</button>
+	</form>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

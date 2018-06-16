@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	
+	<form th:action="@{/admin/addProfesseur}" method="post" th:object="${professeur}">
+		<fieldset> Saisie Professeur
+		<span th:if="${errorProf}">Professeur Existe(CIN existe)</span>
+		<span th:if="${errorRole}">Vous Devez Selctionner un Role</span>
+		<div>
+			<label>CIN:</label>
+			<input type="text" th:field="*{cin}"/>
+			<span th:errors="*{cin}"></span>
+		</div>
+		<div>
+			<label>Nom:</label>
+			<input type="text" th:field="*{nom}"/>
+		</div>
+		<div>
+			<label>Prenom:</label>
+			<input type="text" th:field="*{prenom}"/>
+		</div>
+		<div>
+			<label>Email:</label>
+			<input type="text" th:field="*{email}"/>
+			<span th:errors="*{email}"></span>
+		</div>
+		<div>
+			<label>Role:</label>
+			<select name="idRole">
+				<option th:value="NULL" th:text="${Select}"></option>
+				<option th:each="role : ${roles}" th:if="${role.roleName != 'ETUDIANT' }" th:value="${role.id}" th:text="${role.roleName}">Wireframe</option>
+			</select>
+		</div>
+		<button type="submit">Enregistrer</button>
+		</fieldset>
+	</form>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

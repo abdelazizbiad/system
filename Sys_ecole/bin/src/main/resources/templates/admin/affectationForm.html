@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1 th:text="${idProf}"></h1>
+	<form th:action="@{/admin/affectation}" method="post">
+		<span th:if="${errorElem}">vous devez Sélectionnez un élément</span>
+		<span th:if="${errorProf}">vous devez Sélectionnez un Professeur</span>
+		<div>
+			<label>Date Debut Affectation Element:</label>
+			<input type="date" th:field="${affectation.date_debut}" required="required"/>
+			<span th:errors="${affectation.date_debut}"></span>
+		</div>
+		<div>
+			<label>Date Fin Affectation Element:</label>
+			<input type="date" th:field="${affectation.date_fin}" required="required"/>
+			<span th:errors="${affectation.date_fin}"></span>
+		</div>
+		<div>	
+			<label>Professeur:</label>
+			<select name="idProf">
+				<option th:value="NULL" th:text="${'Selectionnez Professeur'}"></option>
+				<option th:each="prof : ${profs}"  th:value="${prof.id}" th:text="${prof.nom+' '+prof.prenom}">Wireframe</option>
+			</select>
+		</div>
+		<div>
+			<label>Element:</label>
+			<select name="idElement">
+				<option th:value="NULL" th:text="${'Selectionnez Element'}"></option>
+				<option th:each="element : ${elements}"  th:value="${element.id}" th:text="${element.nom}">Wireframe</option>
+			</select>
+		</div>
+		<div>
+			<input type="checkbox" name="reI" />
+			<label>Voulez vous ajouter une autre affectation</label>
+		</div>
+		<button type="submit">Enregistrer</button>
+		</form>
+		<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

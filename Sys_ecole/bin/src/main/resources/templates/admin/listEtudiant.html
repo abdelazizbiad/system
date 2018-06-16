@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+	<h1>List Absence</h1>
+	<form>
+		<div th:action="@{/admin/lisEtudiant}" method="get" >
+			<label>Saisie le Nom ou partie du Nom:</label>
+			<input type="text" name="motCle" th:value="${motCle}"/>
+			<button type="submit">Chercher</button>
+		</div>
+	</form>
+	<div th:if="${Etudiants}">
+		<table>
+			<tr>
+				<th>CNE:</th>
+				<th>cin:</th>
+				<th>Nom:</th>
+				<th>Prenom:</th>
+				<th>email:</th>
+				<th>sexe:</th>
+				<th>photo</th>
+			</tr>
+			<tr th:each="etd : ${Etudiants}">
+				<td th:text="${etd.cne}"></td>
+				<td th:text="${etd.cin}"></td>
+				<td th:text="${etd.nom}"></td>
+				<td th:text="${etd.prenom}"></td>
+				<td th:text="${etd.email}"></td>
+				<td th:text="${etd.sexe}"></td>
+				<td>
+					<img th:src="@{/getPicture(nomPhoto=${etd.photo})}" width="130" height="130"/>
+				</td>
+				<td><a onclick="return confirm('Voulez vous vraiment Supprimer ?')" th:href="@{/admin/deleteEtudiant(id=${etd.id})}">Supprimer</a></td>
+			</tr>
+		</table>
+	</div>
+	<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

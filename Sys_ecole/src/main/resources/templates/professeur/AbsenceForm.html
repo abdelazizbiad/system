@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	 <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+
+<body>
+	<header th:replace="fragments :: header"></header>
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div class="profile-container">
+                <img class="profile" th:src="@{/getPicture(nomPhoto=${user.photo})}" width="150" height="150"/>
+                <table><tr><td th:text="${user.nom}"></td></tr></table>
+                <table><tr><td th:text="${user.prenom}"></td></tr></table>
+            </div><!--//profile-container-->
+			
+            <div th:if="${roleUser eq 'ADMIN' || roleUser eq 'PROFESSEUR'}">
+            <div class="contact-container container-block">
+            	<h3 class="container-block-title">IDENTIFICATION Du Professeur</h3>
+                <ul class="list-unstyled contact-list">
+                    <li><i>CIN:</i><table><tr><td th:text="${user.cne}"></td></tr></table></li>
+                    <li><i>email:</i><table><tr><td th:text="${user.dateNaissance}"></td></tr></table></li>
+                    
+                    <li><i></i>
+						<table>
+							<tr th:if="${roleUser} == 'ADMIN'">
+								<td>ROLE:</td>
+								<td>ADMIN</td>
+							</tr>
+						</table>
+					</li>
+                </ul>
+            </div><!--//contact-container-->
+            </div>
+        </div><!--//sidebar-wrapper-->
+        
+        <div class="main-wrapper">
+         
+            
+            
+            
+              <CENTER><fieldset ><h1> ABSENCE FORM<h1></h1></fieldset></CENTER>
+					
+            	
+            	<form method="post" th:object="${absence}" th:object="${professeur}" class="login100-form validate-form p-l-55 p-r-55 p-t-178">
+					<div  th:if="${Erreuretd}">
+              			 <span>Etudiant Introuvable</span>            
+					</div>
+					<br>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter hour">
+						<label>Heure Debut Séance</label>
+						<input type="datetime" th:field="*{heure_debut_seance}" class="input100" placeholder="Format yyyy-MM-dd HH:mm" />
+						<span class="focus-input100"></span>
+						<span th:errors="*{heure_debut_seance}"></span>
+					</div>
+
+					<br>
+					<br>
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please enter hour">
+						<label>Heure Fin Séance</label>
+						<input type="datetime" th:field="*{heure_fin_seance}" placeholder="Format yyyy-MM-dd HH:mm" class="input100" id="heure_fin_seance"  class="form-control"
+                               required="required"/>
+						<span class="focus-input100"></span>
+						<span th:errors="*{heure_fin_seance}"></span>
+					</div>
+					<br>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Please enter justification">
+						<label>Justification:</label>
+						<input type="checkbox" th:field="*{justification}" class="input100" id="justification"  class="form-control"
+                                required="required"/>
+						<span class="focus-input100"></span>
+					</div>
+					<br><br>
+					
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "Please enter cne">
+						<input type="text" name="CNE" class="input100" id="CNE"  class="form-control"
+                               placeholder="CNE Etudiant" required="required"/>
+						<span class="focus-input100"></span>
+						<div  th:if="${erreurCne}">
+               				<span>Vous devez saisir un cne</span>            
+						</div>
+					</div>
+					<br>
+					
+					
+					
+					
+					<div class="wrap-input100 validate-input" class="input100" required="required" class="form-control" data-validate = "Please select element">
+					<br>
+					<label>Séléctionner Element</label>
+					
+					<select STYLE="width:80;height: 30" name="idElement">
+						<option th:value="NULL" th:text="${'Select Element'}"></option>
+						<option th:each="affectation : ${affectations}" th:value="${affectation.element.id}" th:text="${affectation.element.nom}">Wireframe</option>
+					</select>
+					<div  th:if="${erreurelement}">
+               			<span>Vous devez séléctionner un element</span>            
+					</div>
+					</div>
+					
+<br>
+
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Enregistrer
+						</button>
+					</div>
+
+					
+				</form>
+            
+            
+            
+            
+            
+            
+            
+           
+            
+         </div><!--//main-body-->
+        
+        
+        
+    </div>
+ <footer class="footer" th:replace="fragments :: footer">
+ 
+ </footer>
+   
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>    
+    <!-- custom js -->
+    <script type="text/javascript" src="assets/js/main.js"></script>            
+</body>
+
+
+</html>
